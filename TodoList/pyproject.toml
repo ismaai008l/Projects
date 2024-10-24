@@ -1,0 +1,15 @@
+[tool.poetry]
+name = "todolist"
+version = "0.1.0"
+description = ""
+authors = ["Ismail TG <mail.taghchti@gmail.comt>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+pydantic = "^2.9.2"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
