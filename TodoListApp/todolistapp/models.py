@@ -1,6 +1,4 @@
-
-# todolist/models.py
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, ConfigDict
 from typing import Optional
 from datetime import datetime
 
@@ -11,8 +9,9 @@ class Task(BaseModel):
     completed: bool = False
     due_date: Optional[datetime] = None
 
-    class Config:
-        schema_extra = {
+    # Updated configuration using ConfigDict
+    model_config = ConfigDict(
+        json_schema_extra={
             "example": {
                 "id": 1,
                 "title": "Buy groceries",
@@ -21,3 +20,4 @@ class Task(BaseModel):
                 "due_date": "2024-10-25T12:00:00"
             }
         }
+    )
