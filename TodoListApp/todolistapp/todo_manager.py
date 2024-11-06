@@ -1,6 +1,6 @@
 # todolist/todo_manager.py
 from typing import List, Optional
-from .models import Task
+from todolistapp.models import Task
 
 class TodoManager:
     def __init__(self):

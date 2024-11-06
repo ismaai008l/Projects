@@ -1,6 +1,6 @@
 # todolist/main.py
-from .models import Task
-from .todo_manager import TodoManager
+from todolistapp.models import Task
+from todolistapp.todo_manager import TodoManager
 from datetime import datetime
 
 def main():
