@@ -1,5 +1,5 @@
 import json
-from model import Book
+from book_tracker.model import Book
 from typing import List
 from pathlib import Path
 
@@ -17,7 +17,8 @@ def load_books() -> List[Book]:
 # Save books to the JSON file
 def save_books(books: List[Book]):
     with open(BOOKS_FILE, "w") as f:
-        json.dump([book.dict() for book in books], f, indent=4)
+        json.dump([book.model_dump() for book in books], f, indent=4)
+
 
 # Add a new book
 def add_book():

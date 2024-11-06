@@ -1,0 +1,10 @@
+[
+    {
+        "title": "test-book",
+        "author": "Sam TG",
+        "genre": "Science",
+        "status": "to-read",
+        "start_date": null,
+        "end_date": null
+    }
+]
