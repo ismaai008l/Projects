@@ -1,7 +1,7 @@
 # weather_cli_tool/main.py
 import requests
 from pydantic import BaseModel, ValidationError
-from config import settings
+from weather_tool.config import settings
 
 # Define a Pydantic model for the weather data response
 class WeatherResponse(BaseModel):
