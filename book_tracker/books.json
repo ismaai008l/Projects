@@ -1,17 +1,9 @@
 [
     {
-        "title": "Quran",
-        "author": "GOD",
-        "genre": "Religion",
-        "status": "reading",
-        "start_date": null,
-        "end_date": null
-    },
-    {
-        "title": "55",
-        "author": "i4.0",
+        "title": "test2",
+        "author": "test22",
         "genre": "",
-        "status": "go",
+        "status": "to-read",
         "start_date": null,
         "end_date": null
     }
