@@ -9,7 +9,8 @@ Features
 
 # Repo Structure:
 
-$->
+```
+
 survey_builder/
 ├── survey_builder/
 │   ├── __init__.py
@@ -24,3 +25,5 @@ survey_builder/
 ├── README.md                 # Project description and usage instructions
 ├── pyproject.toml            # Poetry configuration file
 └── survey.json               # Example JSON file for exporting surveys
+
+```
