@@ -1,5 +1,5 @@
 import json
-from book_tracker.model import Book
+from model import Book
 from typing import List
 from pathlib import Path
 
