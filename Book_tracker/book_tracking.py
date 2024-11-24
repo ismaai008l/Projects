@@ -99,7 +99,7 @@ def delete_book():
         index = int(input("Enter book number to be deleted: ")) - 1
         if 0 <= index < len(books):
             deleted_book = books.pop(index)
-            save_books()
+            save_books(books)
             print(f"{deleted_book} deleted from book list")
         else:
             print("Invalid book number")

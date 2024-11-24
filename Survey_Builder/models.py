@@ -1,37 +1,34 @@
-# survey_builder/models.py
-from pydantic import BaseModel, validator
-from typing import List, Union
+from pydantic import BaseModel, Field, field_validator
+from typing import List, Optional
 
-class MultipleChoiceQuestion(BaseModel):
+class Question(BaseModel):
     question_text: str
-    choices: List[str]
-    answer: str = None
+    question_type: str
+    choices: Optional[List[str]] = None  # For multiple-choice questions
+    rating_scale: Optional[tuple[int, int]] = None  # Min and Max for ratings
 
-    @validator("answer")
-    def validate_answer(cls, answer, values):
-        if answer and answer not in values["choices"]:
-            raise ValueError("Answer must be one of the provided choices")
-        return answer
+    @field_validator("question_type")
+    def validate_question_type(cls, v):
+        allowed_types = ["multiple_choice", "rating", "text"]
+        if v not in allowed_types:
+            raise ValueError(f"Invalid question type: {v}. Allowed types: {allowed_types}")
+        return v
 
-class RatingQuestion(BaseModel):
-    question_text: str
-    min_rating: int
-    max_rating: int
-    answer: int = None
+    @field_validator("choices", mode="before")
+    def validate_choices(cls, v, values):
+        if values.get("question_type") == "multiple_choice" and not v:
+            raise ValueError("Choices are required for multiple-choice questions.")
+        return v
 
-    @validator("answer")
-    def validate_rating(cls, answer, values):
-        if answer and not (values["min_rating"] <= answer <= values["max_rating"]):
-            raise ValueError(f"Answer must be between {values['min_rating']} and {values['max_rating']}")
-        return answer
+    @field_validator("rating_scale", mode="before")
+    def validate_rating_scale(cls, v, values):
+        if values.get("question_type") == "rating":
+            if not isinstance(v, tuple) or len(v) != 2 or v[0] >= v[1]:
+                raise ValueError("Rating scale must be a tuple of two integers (min, max) where min < max.")
+        return v
 
-class TextQuestion(BaseModel):
-    question_text: str
-    answer: str = None
-
-Question = Union[MultipleChoiceQuestion, RatingQuestion, TextQuestion]
 
 class Survey(BaseModel):
     title: str
     description: str
-    questions: List[Question] = []
+    questions: List[Question] = Field(default_factory=list)
