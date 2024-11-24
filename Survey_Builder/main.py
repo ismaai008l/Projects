@@ -1,20 +1,27 @@
-from survey_builder.cli import create_survey, add_question, view_survey
-from survey_builder.utils import export_survey
+from cli import create_survey, add_question, view_survey, export_survey
 
 def main():
     survey = create_survey()
     while True:
-        action = input("Choose an action (add_question, view_survey, export, quit): ").strip()
-        if action == "add_question":
+        print("\nChoose an action:")
+        print("1. Add question")
+        print("2. View survey")
+        print("3. Export survey")
+        print("4. Quit")
+
+        choice = input("Enter your choice: ")
+
+        if choice == "1":
             add_question(survey)
-        elif action == "view_survey":
+        elif choice == "2":
             view_survey(survey)
-        elif action == "export":
+        elif choice == "3":
             export_survey(survey)
-        elif action == "quit":
+        elif choice == "4":
+            print("Exiting Survey Builder. Goodbye!")
             break
         else:
-            print("Invalid action")
+            print("Invalid choice. Please try again.")
 
 if __name__ == "__main__":
     main()
