@@ -1,34 +1,11 @@
-from pydantic import BaseModel, Field, field_validator
 from typing import List, Optional
+from pydantic import BaseModel, Field
 
 class Question(BaseModel):
-    question_text: str
-    question_type: str
-    choices: Optional[List[str]] = None  # For multiple-choice questions
-    rating_scale: Optional[tuple[int, int]] = None  # Min and Max for ratings
-
-    @field_validator("question_type")
-    def validate_question_type(cls, v):
-        allowed_types = ["multiple_choice", "rating", "text"]
-        if v not in allowed_types:
-            raise ValueError(f"Invalid question type: {v}. Allowed types: {allowed_types}")
-        return v
-
-    @field_validator("choices", mode="before")
-    def validate_choices(cls, v, values):
-        if values.get("question_type") == "multiple_choice" and not v:
-            raise ValueError("Choices are required for multiple-choice questions.")
-        return v
-
-    @field_validator("rating_scale", mode="before")
-    def validate_rating_scale(cls, v, values):
-        if values.get("question_type") == "rating":
-            if not isinstance(v, tuple) or len(v) != 2 or v[0] >= v[1]:
-                raise ValueError("Rating scale must be a tuple of two integers (min, max) where min < max.")
-        return v
-
+    question_text: str = Field(..., description="The text of the question")
+    question_type: str = Field(..., description="The type of question (text, multiple_choice, rating)")
 
 class Survey(BaseModel):
-    title: str
-    description: str
+    title: str = Field(..., description="Title of the survey")
+    description: Optional[str] = Field(None, description="Description of the survey")
     questions: List[Question] = Field(default_factory=list)
